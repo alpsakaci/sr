@@ -14,3 +14,9 @@ sudo ./install.sh
 ```bash
 sr servers.json
 ```
+
+### Dependencies
+
+- `ssh`
+- `sshpass`
+- `python3`
