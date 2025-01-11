@@ -2,16 +2,17 @@ import json
 import sys
 from typing import List, Dict
 import subprocess
+import argparse
 
-def load_servers() -> List[Dict]:
+def load_servers(filename: str) -> List[Dict]:
     try:
-        with open('servers.json', 'r') as f:
+        with open(filename, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        print("Error: servers.json file not found")
+        print(f"Error: {filename} file not found")
         sys.exit(1)
     except json.JSONDecodeError:
-        print("Error: Invalid JSON format in servers.json")
+        print(f"Error: Invalid JSON format in {filename}")
         sys.exit(1)
 
 def display_servers(servers: List[Dict]) -> None:
@@ -28,7 +29,11 @@ def connect_to_server(server: Dict) -> None:
         print("\nConnection terminated by user")
 
 def main():
-    servers = load_servers()
+    parser = argparse.ArgumentParser(description='SSH connection manager')
+    parser.add_argument('filename', help='JSON file containing server information')
+    args = parser.parse_args()
+
+    servers = load_servers(args.filename)
     while True:
         display_servers(servers)
         try:
