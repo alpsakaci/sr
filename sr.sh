@@ -1,1 +1,1 @@
-python3 ssh_connect.py "$1"
+python3 /usr/local/bin/ssh_connect.py "$1"
